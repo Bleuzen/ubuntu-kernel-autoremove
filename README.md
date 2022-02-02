@@ -12,7 +12,7 @@ Install:
 
 ```
 git clone https://github.com/Bleuzen/ubuntu-kernel-autoremove.git
-cd v1/
+cd ubuntu-kernel-autoremove/v1/
 bash install.sh
 ```
 
@@ -25,6 +25,6 @@ Install:
 
 ```
 git clone https://github.com/Bleuzen/ubuntu-kernel-autoremove.git
-cd v2/
+cd ubuntu-kernel-autoremove/v2/
 bash install.sh
 ```
