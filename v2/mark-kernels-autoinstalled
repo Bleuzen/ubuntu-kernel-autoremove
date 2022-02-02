@@ -4,19 +4,33 @@ _argStr="$*";
 _debugFile="/tmp/DEBUG-automark";
 _appName="$(basename "$0")";
 
-1>&2 echo "${_basename}: BEGIN Mark kernel packages as auto installed";
-read -r -d '' -a _manualList < <( apt-mark showmanual \
-  | grep -E '^linux-([[:alpha:]]+-)+[[:digit:].]+-[^-]+(|-.+)$'
-);
+{
+  1>&2 echo -e "=========== ${_appName} ============
+BEGIN Mark kernel packages as auto installed";
+  # Find manual-marked packages named like so:
+  #   linux-headers-5.14.0-1011-oem
+  #   linux-image-5.14.0-1011-oem
+  #   linux-modules-5.14.0-1011-oem
+  #   linux-oem-5.14-headers-5.14.0-1011
+  #   linux-oem-5.14-tools-5.14.0-1011
+  #   linux-tools-5.14.0-1011-oem
+  read -r -d '' -a _manualList < <( apt-mark showmanual \
+    | grep -E '^linux-([[:alpha:]]+-)+[[:digit:].]+-[^-]+(|-.+)$'
+  );  
 
-{ date
+  # Marshal output
+  date;
   cat <<_EOF
 _argStr     = >${_argStr}<
 _manualList = >${_manualList[*]}<
-==========================
 _EOF
-if [ "${#_manualList[@]}" -gt 0 ]; then
-  apt-mark auto "${_manualList[@]}" || true;
-fi
-} >> "${_debugFile}";
-1>&2 echo "${_basename}: . END Mark kernel packages as auto installed";
+
+  if [ "${#_manualList[@]}" -gt 0 ]; then
+    apt-mark auto "${_manualList[@]}" || true;
+  fi  
+
+  1>&2 echo -e "END Mark kernel packages as auto installed
+============================================\n";
+} >> "${_debugFile}" 2>&1;
+
+
