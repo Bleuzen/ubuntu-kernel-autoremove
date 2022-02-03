@@ -8,5 +8,6 @@ fi
 cp mark-kernels-autoinstalled /usr/bin/
 chmod 755 /usr/bin/mark-kernels-autoinstalled
 
-cp apt.conf /etc/apt/apt.conf.d/
-chmod 755 /etc/apt/apt.conf.d/apt.conf
+cp apt.conf /etc/apt/apt.conf.d/00mark-kernels-autoinstalled
+chmod 644 /etc/apt/apt.conf.d/00mark-kernels-autoinstalled
+
