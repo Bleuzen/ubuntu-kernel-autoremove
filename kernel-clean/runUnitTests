@@ -35,7 +35,6 @@ _t00ClearRunDirFn () {
     _cm0EchoFn "FAIL: cannot create ${_t00RunDir}";
     return 1;
   fi
-  return 0;
 }
 
 # Test-harness: Clear and copy init into run directory
@@ -56,7 +55,6 @@ _t00CopyInitDirFn () {
     _cm0EchoFn "FAIL: Could not copy init dir ${_t00InitDir}";
     return 1;
   fi
-  return 0;
 }
 
 # Test-harness: Check expect directory
@@ -66,7 +64,6 @@ _t00CheckExpectDirFn () {
     _cm0EchoFn "FAIL: Missing expect dir ${_t00ExpectDir}";
     return 1;
   fi
-  return 0;
 }
 
 ## BEGIN _t00RunTestScriptsFn {
@@ -125,9 +122,8 @@ _t00RunTestScriptsFn () {
     (( _unit_count++ ));
 
     # Reimport common.source to overwrite any mocks
-    # shellcheck disable=SC1090
     # DISABLED from upstream: source "${_t00BinDir}/common.source";
-  done;
+  done
   ## End Iterate over unit files }
 
   # Summarize results and return results
